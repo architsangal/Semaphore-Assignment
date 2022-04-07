@@ -1,0 +1,1 @@
+// Your semaphores can have any keys in the range 7770-7779.
