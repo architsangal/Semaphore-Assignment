@@ -5,10 +5,7 @@
 #include <sys/time.h>
 #include "mysemops.h"
 # define SEM_KEY_VAL 7890
-# define SEM_PROG_END 7891
-# define SEM_DOC_END 7892
 
-bool doctor_running = true;
 struct doctor
 {
     long long unsigned int arrival;
@@ -20,9 +17,8 @@ struct doctor
 int main(int argc, char * argv[])
 {
     struct doctor doc = {0,0,true,true};
-
+    printf("--------OUTPUT STARTS------\n");
     printf("DOC AVAILABLE\n");
-
     int semid=get_existing_sem(SEM_KEY_VAL);
 
     struct timeval tv;
@@ -35,7 +31,13 @@ int main(int argc, char * argv[])
         sleep(10);
         printf("DOC TIRED\n");
 
+        while(get_val_sem(semid)>0)
+        {
+
+        }
+
         lock_down(semid);
+        
         gettimeofday(&tv,&tz);
         doc.available = false;
         printf("DOC UNAVAILABLE\n");
@@ -62,12 +64,6 @@ int main(int argc, char * argv[])
             printf("----- OUTPUT ENDS ---\n");
         }
     }
-    
-	int semid_doc_end=get_existing_sem(SEM_DOC_END);
-    lock_down(semid_doc_end);
-
-	int semid_init=get_existing_sem(SEM_PROG_END);
-    free_up(semid_init);
-
+    remove_sem(semid);
     return 0;
 }

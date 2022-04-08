@@ -2,26 +2,45 @@
 #include "mysemops.h"
 #include <stdbool.h>
 #include <unistd.h>
-# define MAX_PATIENT 10000
+# define SEM_KEY_VAL 7890
 
 struct patient
 {
-	int index;
     int arrival_time;
-    bool attended;
 };
 
-int lock_patient(struct patient * patient_obj, int semid)
+void print_visitor(int argc, char * argv[])
 {
-    lock_down(semid);
-    patient_obj->attended = true;
-	sleep(2);
-	free_up(semid);
-    return 0;
+    printf("------VISITOR ");
+    for(int i =1;i<argc;i++)
+    {
+        printf("%s ",argv[i]);
+    }
 }
 
 int main(int argc, char * argv[])
 {
-    printf("%d %s %s\n",argc,argv[0],argv[1]);
+    struct patient pat = {0};
+    int semid=get_existing_sem(SEM_KEY_VAL);
+    if(semid<0)
+    {
+        printf("DOC UNAVAILABLE");
+        return 0;
+    }
+
+    print_visitor(argc,argv);
+    printf("WAITS\n");
+
+    lock_down(semid);
+    
+    print_visitor(argc,argv);
+    printf("TALKS\n");
+    sleep(2);
+
+    free_up(semid);
+
+    print_visitor(argc,argv);
+    printf("LEAVES\n");
+
     return 0;
 }
