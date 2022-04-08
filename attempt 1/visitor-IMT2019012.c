@@ -11,8 +11,6 @@ struct patient
     bool attended;
 };
 
-struct patient patients_array[MAX_PATIENT];
-
 int lock_patient(struct patient * patient_obj, int semid)
 {
     lock_down(semid);
