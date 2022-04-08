@@ -8,6 +8,6 @@
 int main(int argc, char * argv[])
 {
 	int semid1 = create_new_sem(SEM_KEY_VAL); // creates and locks SEM_KEY_VAL
-    free_up(semid1);						  // frees SEM_KEY_VAL
+    printf("--------OUTPUT STARTS------\n");
     return 0;
 }

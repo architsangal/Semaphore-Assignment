@@ -17,9 +17,9 @@ struct doctor
 int main(int argc, char * argv[])
 {
     struct doctor doc = {0,0,true,true};
-    printf("--------OUTPUT STARTS------\n");
     printf("DOC AVAILABLE\n");
     int semid=get_existing_sem(SEM_KEY_VAL);
+    free_up(semid);						  // frees SEM_KEY_VAL from init
 
     struct timeval tv;
     struct timezone tz;
