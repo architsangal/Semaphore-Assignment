@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include "mysemops.h"
+#include "mysemops-IMT2019012.h"
 #include <stdbool.h>
 #include <unistd.h>
-# define SEM_KEY_VAL 7890
+# define SEM_KEY_VAL 7770
 
 struct patient
 {

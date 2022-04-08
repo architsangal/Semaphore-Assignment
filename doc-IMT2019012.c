@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include "mysemops.h"
-# define SEM_KEY_VAL 7890
+#include "mysemops-IMT2019012.h"
+# define SEM_KEY_VAL 7770
 
 struct doctor
 {
@@ -31,9 +31,8 @@ int main(int argc, char * argv[])
         sleep(10);
         printf("DOC TIRED\n");
 
-        while(get_val_sem(semid)>0)
+        while(get_val_sem(semid)<1)
         {
-
         }
 
         lock_down(semid);
@@ -46,6 +45,7 @@ int main(int argc, char * argv[])
         if(doc.shift_number !=2) // 3rd shift is going on this should not be executed
         {
             int wait_sec = (rand() % (10 - 5 + 1)) + 5;
+            printf("\n-------------%d--------------\n",wait_sec);
             sleep(wait_sec);
             gettimeofday(&tv,&tz);
             doc.arrival = tv.tv_sec;
@@ -55,7 +55,7 @@ int main(int argc, char * argv[])
 
         doc.available = true;
         doc.shift_number += 1;
-        
+                
         if(doc.shift_number <3)
             printf("DOC AVAILABLE\n");
         else

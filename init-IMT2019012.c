@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdio.h>
-#include "mysemops.h"
-# define SEM_KEY_VAL 7890
+#include "mysemops-IMT2019012.h"
+# define SEM_KEY_VAL 7770
 
 int main(int argc, char * argv[])
 {
