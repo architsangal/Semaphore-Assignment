@@ -24,7 +24,8 @@ int main(int argc, char * argv[])
     int semid=get_existing_sem(SEM_KEY_VAL);
     if(semid<0)
     {
-        printf("DOC UNAVAILABLE");
+        print_visitor(argc,argv);
+        printf("\nDOC UNAVAILABLE\n");
         return 0;
     }
 
